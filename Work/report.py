@@ -17,6 +17,19 @@ def read_inventory(filename):
     return inventory
 
 
+def read_prices(filename):
+    with open(filename) as FH:
+        rows = csv.reader(FH)
+        prices = dict()
+        for row in rows:
+            try:
+                prices[row[0]] = float(row[1])
+            except IndexError as e:
+                continue
+
+    return prices
+
+
 if len(sys.argv) == 2:
     filename = sys.argv[1]
 else:
