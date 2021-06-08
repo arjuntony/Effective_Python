@@ -1,5 +1,6 @@
 import csv
 import sys
+from pprint import pprint
 
 
 def read_inventory(filename):
@@ -36,3 +37,21 @@ else:
     filename = "Data/inventory.csv"
 
 inventory = read_inventory(filename)
+total_cost = 0.0
+for pdct in inventory:
+    total_cost += pdct["quant"] * pdct["price"]
+
+print("Initial Cost", total_cost)
+
+latest_prices = read_prices("Data/prices.csv")
+present_cost = 0.0
+
+for pdct in inventory:
+    pr_name = pdct["name"]
+    # present_cost += # quantity * Latest Price
+    present_cost += pdct["quant"] * latest_prices[pr_name]
+
+print("Present Cost =", present_cost)
+
+Total_gain = present_cost - total_cost
+print("Total Gain is = ", Total_gain)
