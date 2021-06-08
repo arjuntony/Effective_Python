@@ -47,9 +47,9 @@ latest_prices = read_prices("Data/prices.csv")
 present_cost = 0.0
 
 for pdct in inventory:
-    pr_name = pdct["name"]
+    # pr_name = pdct["name"]
     # present_cost += # quantity * Latest Price
-    present_cost += pdct["quant"] * latest_prices[pr_name]
+    present_cost += pdct["quant"] * latest_prices[pdct["name"]]
 
 print("Present Cost =", present_cost)
 
