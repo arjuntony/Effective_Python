@@ -31,6 +31,19 @@ def read_prices(filename):
     return prices
 
 
+def make_report(pdcs, prices):
+    values = list()
+    for p in pdcs:
+        name = p["name"]
+        quant = p["quant"]
+        latest_price = prices[p["name"]]
+        change_in_price = p["price"] - latest_price
+        row = (name, quant, latest_price, change_in_price)
+        values.append(row)
+
+    return values
+
+
 if len(sys.argv) == 2:
     filename = sys.argv[1]
 else:
@@ -55,3 +68,5 @@ print("Present Cost =", present_cost)
 
 Total_gain = present_cost - total_cost
 print("Total Gain is = ", Total_gain)
+
+rows = make_report(inventory, latest_prices)
