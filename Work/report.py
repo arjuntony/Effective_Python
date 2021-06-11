@@ -64,9 +64,25 @@ for pdct in inventory:
     # present_cost += # quantity * Latest Price
     present_cost += pdct["quant"] * latest_prices[pdct["name"]]
 
-print("Present Cost =", present_cost)
-
-Total_gain = present_cost - total_cost
-print("Total Gain is = ", Total_gain)
-
 rows = make_report(inventory, latest_prices)
+
+headers = ('Name', 'Quantity', 'Price', 'Change')
+dashes = ["-"*10, ]* 4
+headers_list = list()
+headers_list.append(headers)
+
+for name,quant,price,change in headers_list:
+    print(f"{name:>10s} {quant:>10s} {price:>10s} {change:>10s}")
+
+print('{:>10} {:>10} {:>10} {:>10}'.format(*dashes))
+
+for name,quant,price,change in rows:
+    #price = '\u20B9' + str(price)
+    print(f"{name:>10s} {quant:>10d} \u20B9{price:>10.2f} {change:>10.2f}")
+
+print("\n")
+
+print("Present Cost =", '\u20B9' + str(present_cost))
+Total_gain = present_cost - total_cost
+print("Total Gain is = ", '\u20B9' + str(Total_gain))
+
