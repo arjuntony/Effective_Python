@@ -75,10 +75,9 @@ for name,quant,price,change in headers_list:
     print(f"{name:>10s} {quant:>10s} {price:>10s} {change:>10s}")
 
 print('{:>10} {:>10} {:>10} {:>10}'.format(*dashes))
-
 for name,quant,price,change in rows:
-    #price = '\u20B9' + str(price)
-    print(f"{name:>10s} {quant:>10d} \u20B9{price:>10.2f} {change:>10.2f}")
+    price = '\u20B9' + str(price)
+    print(f"{name:>10s} {quant:>10d} {price:>10s} {change:>10.2f}")
 
 print("\n")
 

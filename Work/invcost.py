@@ -8,13 +8,14 @@ def inventory_cost(filename):
         headers = next(rows)
         total = 0.0
 
-        for row in rows:
+        for row_num, row in enumerate(rows, start=1):
             try:
                 quant = int(row[1])
                 price = float(row[2])
                 total += quant*price
             except ValueError:
-                print("Bad Row", row)
+               # print("Row" ,row_num,":","Couldnt convert :",row )
+                print(f"Row {row_num} : Couldnt convert : {row}")
 
     return total
 
