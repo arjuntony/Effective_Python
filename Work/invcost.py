@@ -3,15 +3,20 @@ import sys
 
 
 def inventory_cost(filename):
+    """
+    To Calulate the Total cost of products in Inventory file
+    """
+
     with open(filename) as FH:
         rows = csv.reader(FH)
         headers = next(rows)
         total = 0.0
 
         for row_num, row in enumerate(rows, start=1):
+            record = dict(zip(headers, row))
             try:
-                quant = int(row[1])
-                price = float(row[2])
+                quant = int(record["quant"])
+                price = float(record["price"])
                 total += quant*price
             except ValueError:
                # print("Row" ,row_num,":","Couldnt convert :",row )
