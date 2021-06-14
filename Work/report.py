@@ -4,21 +4,33 @@ from pprint import pprint
 
 
 def read_inventory(filename):
+    """
+     Read inventory file into a list of dictnories with keys as
+     name,quant,prices
+    :param filename: filename
+    :return: list of dict
+    """
     with open(filename) as FH:
         rows = csv.reader(FH)
         headers = next(rows)
         inventory = list()
 
         for row in rows:
+            record = dict(zip(headers, row))
             product = dict()
-            product["name"] = row[0]
-            product["quant"] = int(row[1])
-            product["price"] = float(row[2])
+            product["name"] = record["name"]
+            product["quant"] = int(record["quant"])
+            product["price"] = float(record["price"])
             inventory.append(product)
     return inventory
 
 
 def read_prices(filename):
+    """
+    Read csv file of prices into a dict mapping product names to prices
+    :param filename: filename
+    :return: dict
+    """
     with open(filename) as FH:
         rows = csv.reader(FH)
         prices = dict()
@@ -32,6 +44,12 @@ def read_prices(filename):
 
 
 def make_report(pdcs, prices):
+    """
+    Make a list of (nmae,quant,price,change) tuples given inventory list and price dict
+    :param pdcs: inventory list
+    :param prices: price dict
+    :return: list of tuples
+    """
     values = list()
     for p in pdcs:
         name = p["name"]
