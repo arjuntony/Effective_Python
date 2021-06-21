@@ -62,44 +62,34 @@ def make_report(pdcs, prices):
     return values
 
 
+def print_report(report):
+    """
+    Prints a nicely formatted table from a list of (name , quant , price , change) tuples
+    :param report: list of tuples for each row
+
+    """
+    headers = ('Name', 'Quantity', 'Price', 'Change')
+    dashes = ["-" * 10, ] * 4
+    print('{:>10} {:>10} {:>10} {:>10}'.format(*headers))
+    # print(f"{headers[0]:>10s} {headers[1]:>10s} {headers[2]:>10s} {headers[3]:>10s}")
+    print('{:>10} {:>10} {:>10} {:>10}'.format(*dashes))
+    for name, quant, price, change in report:
+        price = '\u20B9' + str(price)
+        print(f"{name:>10s} {quant:>10d} {price:>10s} {change:>10.2f}")
+
+
 if len(sys.argv) == 2:
     filename = sys.argv[1]
 else:
     filename = "Data/inventory.csv"
 
 inventory = read_inventory(filename)
-total_cost = 0.0
-for pdct in inventory:
-    total_cost += pdct["quant"] * pdct["price"]
-
-print("Initial Cost", total_cost)
-
 latest_prices = read_prices("Data/prices.csv")
-present_cost = 0.0
-
-for pdct in inventory:
-    # pr_name = pdct["name"]
-    # present_cost += # quantity * Latest Price
-    present_cost += pdct["quant"] * latest_prices[pdct["name"]]
-
 rows = make_report(inventory, latest_prices)
+print_report(rows)
 
-headers = ('Name', 'Quantity', 'Price', 'Change')
-dashes = ["-"*10, ]* 4
-headers_list = list()
-headers_list.append(headers)
-
-for name,quant,price,change in headers_list:
-    print(f"{name:>10s} {quant:>10s} {price:>10s} {change:>10s}")
-
-print('{:>10} {:>10} {:>10} {:>10}'.format(*dashes))
-for name,quant,price,change in rows:
-    price = '\u20B9' + str(price)
-    print(f"{name:>10s} {quant:>10d} {price:>10s} {change:>10.2f}")
-
-print("\n")
-
-print("Present Cost =", '\u20B9' + str(present_cost))
-Total_gain = present_cost - total_cost
-print("Total Gain is = ", '\u20B9' + str(Total_gain))
+#
+# print("Present Cost =", '\u20B9' + str(present_cost))
+# Total_gain = present_cost - total_cost
+# print("Total Gain is = ", '\u20B9' + str(Total_gain))
 
