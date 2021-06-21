@@ -78,15 +78,27 @@ def print_report(report):
         print(f"{name:>10s} {quant:>10d} {price:>10s} {change:>10.2f}")
 
 
+def inventory_report(inventory_filename, prices_filename):
+    """
+    Make a inventory report given inventory & prices data file
+    """
+    # Read Data Files
+    inventory = read_inventory(inventory_filename)
+    latest_prices = read_prices(prices_filename)
+
+    # Create the Report Data
+    rows = make_report(inventory, latest_prices)
+
+    # Print the Report
+    print_report(rows)
+
+
 if len(sys.argv) == 2:
     filename = sys.argv[1]
 else:
     filename = "Data/inventory.csv"
 
-inventory = read_inventory(filename)
-latest_prices = read_prices("Data/prices.csv")
-rows = make_report(inventory, latest_prices)
-print_report(rows)
+inventory_report("Data/inventory.csv", "Data/prices.csv")
 
 #
 # print("Present Cost =", '\u20B9' + str(present_cost))
