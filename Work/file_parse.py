@@ -11,6 +11,9 @@ def parse_csv(filename, select = None , types = None, has_headers = True, delimi
     :param delimiter: specify delimiter for values
     :return: list if dict
     """
+    if select and not has_headers:
+        raise RuntimeError("Select Requires Column Numbers")
+
     with open(filename) as FH:
         rows = csv.reader(FH, delimiter = delimiter)
         # Read the file headers if presents
@@ -27,7 +30,7 @@ def parse_csv(filename, select = None , types = None, has_headers = True, delimi
             indices = []
 
         records = list()
-        for row in rows:
+        for line,row in enumerate(rows, start = 1):
             if not row:
                 continue
 
@@ -37,7 +40,11 @@ def parse_csv(filename, select = None , types = None, has_headers = True, delimi
 
             # apply type conversion to the row
             if types:
-                row = [func(val) for func, val in zip(types, row)]
+                try:
+                    row = [func(val) for func, val in zip(types, row)]
+                except ValueError as e:
+                    print(f"Row {line}: Coulnt convert {row} ")
+                    print(f"Row {line} : Reason {e}")
 
             # make dict on a tuple
             if headers:
