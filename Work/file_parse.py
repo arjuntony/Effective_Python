@@ -1,17 +1,18 @@
 import csv
 
 
-def parse_csv(filename, select = None , types = None, has_headers = True):
+def parse_csv(filename, select = None , types = None, has_headers = True, delimiter = ','):
     """
     Parse a csv fike into a list of records
     :param filename: filename
     :param select : specify  List of column name
     :param type : Datatype of each column
     :param has_headers : True for Files with Headers
+    :param delimiter: specify delimiter for values
     :return: list if dict
     """
     with open(filename) as FH:
-        rows = csv.reader(FH)
+        rows = csv.reader(FH, delimiter = delimiter)
         # Read the file headers if presents
         if has_headers:
             headers = next(rows)
