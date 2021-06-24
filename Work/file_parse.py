@@ -1,7 +1,7 @@
 import csv
 
 
-def parse_csv(filename, select = None , types = None, has_headers = True, delimiter = ','):
+def parse_csv(filename, select = None , types = None, has_headers = True, delimiter = ',', silence_errors = False):
     """
     Parse a csv fike into a list of records
     :param filename: filename
@@ -9,6 +9,7 @@ def parse_csv(filename, select = None , types = None, has_headers = True, delimi
     :param type : Datatype of each column
     :param has_headers : True for Files with Headers
     :param delimiter: specify delimiter for values
+    :param silence_errors : Set to True to silence erros
     :return: list if dict
     """
     if select and not has_headers:
@@ -43,9 +44,10 @@ def parse_csv(filename, select = None , types = None, has_headers = True, delimi
                 try:
                     row = [func(val) for func, val in zip(types, row)]
                 except ValueError as e:
-                    print(f"Row {line}: Coulnt convert {row} ")
-                    print(f"Row {line} : Reason {e}")
-
+                    if not silence_errors:
+                        print(f"Row {line}: Coulnt convert {row} ")
+                        print(f"Row {line} : Reason {e}")
+                    continue
             # make dict on a tuple
             if headers:
                 record = dict(zip(headers, row))
