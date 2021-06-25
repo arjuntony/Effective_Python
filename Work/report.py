@@ -1,6 +1,7 @@
 import csv
 import sys
 from pprint import pprint
+from file_parse import parse_csv
 
 
 def read_inventory(filename):
@@ -10,19 +11,23 @@ def read_inventory(filename):
     :param filename: filename
     :return: list of dict
     """
-    with open(filename) as FH:
-        rows = csv.reader(FH)
-        headers = next(rows)
-        inventory = list()
+    return parse_csv(filename,
+                     select = ["name", "quant", "price"],
+                     types = [str, int, float])
 
-        for row in rows:
-            record = dict(zip(headers, row))
-            product = dict()
-            product["name"] = record["name"]
-            product["quant"] = int(record["quant"])
-            product["price"] = float(record["price"])
-            inventory.append(product)
-    return inventory
+    # with open(filename) as FH:
+    #     rows = csv.reader(FH)
+    #     headers = next(rows)
+    #     inventory = list()
+    #
+    #     for row in rows:
+    #         record = dict(zip(headers, row))
+    #         product = dict()
+    #         product["name"] = record["name"]
+    #         product["quant"] = int(record["quant"])
+    #         product["price"] = float(record["price"])
+    #         inventory.append(product)
+    # return inventory
 
 
 def read_prices(filename):
@@ -31,16 +36,18 @@ def read_prices(filename):
     :param filename: filename
     :return: dict
     """
-    with open(filename) as FH:
-        rows = csv.reader(FH)
-        prices = dict()
-        for row in rows:
-            try:
-                prices[row[0]] = float(row[1])
-            except IndexError as e:
-                continue
-
-    return prices
+    return dict(parse_csv(filename, types= [str, float],
+              has_headers=False))
+    # with open(filename) as FH:
+    #     rows = csv.reader(FH)
+    #     prices = dict()
+    #     for row in rows:
+    #         try:
+    #             prices[row[0]] = float(row[1])
+    #         except IndexError as e:
+    #             continue
+    #
+    # return prices
 
 
 def make_report(pdcs, prices):
