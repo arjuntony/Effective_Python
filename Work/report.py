@@ -100,15 +100,16 @@ def inventory_report(inventory_filename, prices_filename):
     print_report(rows)
 
 
-if len(sys.argv) == 2:
-    filename = sys.argv[1]
-else:
-    filename = "Data/inventory.csv"
+def main(argv):
+    if len(argv) != 3:
+        raise SystemExit(f"Usage : {argv[0]} invfile pricefile")
 
-inventory_report("Data/inventory.csv", "Data/prices.csv")
+    invfile = argv[1]
+    pricefile = argv[2]
+    inventory_report(invfile, pricefile)
 
-#
-# print("Present Cost =", '\u20B9' + str(present_cost))
-# Total_gain = present_cost - total_cost
-# print("Total Gain is = ", '\u20B9' + str(Total_gain))
+
+if __name__ == "__main__":
+    import sys
+    main(sys.argv)
 
