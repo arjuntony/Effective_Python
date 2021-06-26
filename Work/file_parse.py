@@ -12,6 +12,9 @@ def parse_csv(lines, select = None , types = None, has_headers = True, delimiter
     :param silence_errors : Set to True to silence erros
     :return: list if dict
     """
+    if isinstance(lines, str):
+        raise RuntimeError("Any iterable except the String")
+
     if select and not has_headers:
         raise RuntimeError("Select Requires Column Numbers")
 
