@@ -11,23 +11,10 @@ def read_inventory(filename):
     :param filename: filename
     :return: list of dict
     """
-    return parse_csv(filename,
+    with open(filename) as FH:
+        return parse_csv(FH,
                      select = ["name", "quant", "price"],
                      types = [str, int, float])
-
-    # with open(filename) as FH:
-    #     rows = csv.reader(FH)
-    #     headers = next(rows)
-    #     inventory = list()
-    #
-    #     for row in rows:
-    #         record = dict(zip(headers, row))
-    #         product = dict()
-    #         product["name"] = record["name"]
-    #         product["quant"] = int(record["quant"])
-    #         product["price"] = float(record["price"])
-    #         inventory.append(product)
-    # return inventory
 
 
 def read_prices(filename):
@@ -36,18 +23,9 @@ def read_prices(filename):
     :param filename: filename
     :return: dict
     """
-    return dict(parse_csv(filename, types= [str, float],
+    with open(filename) as FH:
+        return dict(parse_csv(FH, types= [str, float],
               has_headers=False))
-    # with open(filename) as FH:
-    #     rows = csv.reader(FH)
-    #     prices = dict()
-    #     for row in rows:
-    #         try:
-    #             prices[row[0]] = float(row[1])
-    #         except IndexError as e:
-    #             continue
-    #
-    # return prices
 
 
 def make_report(pdcs, prices):
