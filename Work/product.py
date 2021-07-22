@@ -6,4 +6,10 @@ class Product:
         self.price = price
     # no return statement in init
 
+    def cost(self):
+        return self.quant * self.price
+
+    def sell(self, amt):
+        new_amt = self.quant - amt
+        self.quant = new_amt
 
