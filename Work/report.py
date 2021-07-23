@@ -3,6 +3,7 @@ import sys
 from pprint import pprint
 from file_parse import parse_csv
 from product import Product
+import tableformat
 
 
 def read_inventory(filename):
@@ -49,20 +50,24 @@ def make_report(pdcs, prices):
     return values
 
 
-def print_report(report):
+def print_report(report, formatter):
     """
     Prints a nicely formatted table from a list of (name , quant , price , change) tuples
     :param report: list of tuples for each row
 
     """
     headers = ('Name', 'Quantity', 'Price', 'Change')
-    dashes = ["-" * 10, ] * 4
-    print('{:>10} {:>10} {:>10} {:>10}'.format(*headers))
+    formatter.headings(headers)
+    # dashes = ["-" * 10, ] * 4
+    # print('{:>10} {:>10} {:>10} {:>10}'.format(*headers))
     # print(f"{headers[0]:>10s} {headers[1]:>10s} {headers[2]:>10s} {headers[3]:>10s}")
-    print('{:>10} {:>10} {:>10} {:>10}'.format(*dashes))
+    # print('{:>10} {:>10} {:>10} {:>10}'.format(*dashes))
     for name, quant, price, change in report:
-        price = '\u20B9' + str(price)
-        print(f"{name:>10s} {quant:>10d} {price:>10s} {change:>10.2f}")
+        rowdata = [name , str(quant), f"{price:>10s}" , f"{change:>10.2f}" ]
+        formatter.row(rowdata)
+
+        # price = '\u20B9' + str(price)
+        # print(f"{name:>10s} {quant:>10d} {price:>10s} {change:>10.2f}")
 
 
 def inventory_report(inventory_filename, prices_filename):
@@ -76,8 +81,10 @@ def inventory_report(inventory_filename, prices_filename):
     # Create the Report Data
     rows = make_report(inventory, latest_prices)
 
+
     # Print the Report
-    print_report(rows)
+    formatter = tableformat.TableFormatter()
+    print_report(rows, formatter)
 
 
 def main(argv):
