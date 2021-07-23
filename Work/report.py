@@ -2,6 +2,7 @@ import csv
 import sys
 from pprint import pprint
 from file_parse import parse_csv
+from product import Product
 
 
 def read_inventory(filename):
@@ -12,9 +13,10 @@ def read_inventory(filename):
     :return: list of dict
     """
     with open(filename) as FH:
-        return parse_csv(FH,
+        invdicts =  parse_csv(FH,
                      select = ["name", "quant", "price"],
                      types = [str, int, float])
+        return [Product(p['name'], p['quant'], p['price']) for p in invdicts]
 
 
 def read_prices(filename):
@@ -37,10 +39,10 @@ def make_report(pdcs, prices):
     """
     values = list()
     for p in pdcs:
-        name = p["name"]
-        quant = p["quant"]
-        latest_price = prices[p["name"]]
-        change_in_price = p["price"] - latest_price
+        name = p.name
+        quant = p.quant
+        latest_price = prices[p.name]
+        change_in_price = p.price - latest_price
         row = (name, quant, latest_price, change_in_price)
         values.append(row)
 
