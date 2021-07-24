@@ -83,15 +83,7 @@ def inventory_report(inventory_filename, prices_filename, fmt='txt'):
 
 
     # Print the Report
-    if fmt == 'txt':
-        formatter = tableformat.TextTableFormatter()
-    elif fmt == 'csv':
-        formatter = tableformat.CsvTableFormatter()
-    elif fmt == 'html':
-        formatter = tableformat.HtmlTableFormatter()
-    else:
-        print("Unkown Formatter", fmt)
-
+    formatter = tableformat.create_formatter(fmt)
     print_report(rows, formatter)
 
 

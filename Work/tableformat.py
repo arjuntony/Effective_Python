@@ -1,3 +1,16 @@
+def create_formatter(name):
+    if name == 'txt':
+        formatter = TextTableFormatter()
+    elif name == 'csv':
+        formatter = CsvTableFormatter()
+    elif name == 'html':
+        formatter = HtmlTableFormatter()
+    else:
+        print("Unkown Formatter", name)
+        return None
+
+    return formatter
+
 
 class TableFormatter:
     def headings(self, headers):
