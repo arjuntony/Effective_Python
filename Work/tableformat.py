@@ -38,3 +38,7 @@ class CsvTableFormatter(TableFormatter):
 
     def row(self,rowdata):
         print(','.join(rowdata))
+
+
+class HtmlTableFormatter(TableFormatter):
+    pass

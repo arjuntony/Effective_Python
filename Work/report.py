@@ -70,7 +70,7 @@ def print_report(report, formatter):
         # print(f"{name:>10s} {quant:>10d} {price:>10s} {change:>10.2f}")
 
 
-def inventory_report(inventory_filename, prices_filename):
+def inventory_report(inventory_filename, prices_filename, fmt='txt'):
     """
     Make a inventory report given inventory & prices data file
     """
@@ -83,17 +83,31 @@ def inventory_report(inventory_filename, prices_filename):
 
 
     # Print the Report
-    formatter = tableformat.CsvTableFormatter()
+    if fmt == 'txt':
+        formatter = tableformat.TextTableFormatter()
+    elif fmt == 'csv':
+        formatter = tableformat.CsvTableFormatter()
+    elif fmt == 'html':
+        formatter = tableformat.HtmlTableFormatter()
+    else:
+        print("Unkown Formatter", fmt)
+
     print_report(rows, formatter)
 
 
 def main(argv):
-    if len(argv) != 3:
+    if len(argv) < 3:
         raise SystemExit(f"Usage : {argv[0]} invfile pricefile")
 
     invfile = argv[1]
     pricefile = argv[2]
-    inventory_report(invfile, pricefile)
+
+    try:
+        format = argv[3]
+    except IndexError:
+        format = 'txt'
+
+    inventory_report(invfile, pricefile, format)
 
 
 if __name__ == "__main__":
