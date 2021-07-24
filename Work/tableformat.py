@@ -30,3 +30,11 @@ class TextTableFormatter(TableFormatter):
         for d in rowdata:
             print(f"{d:>10s}", end=" ")
         print()
+
+
+class CsvTableFormatter(TableFormatter):
+    def headings(self, headers):
+        print(','.join(headers))
+
+    def row(self,rowdata):
+        print(','.join(rowdata))
