@@ -6,6 +6,9 @@ class Product:
         self.price = price
     # no return statement in init
 
+    def __repr__(self):
+        return (f"Product({self.name!r},{self.quant},{self.price})")
+
     def cost(self):
         return self.quant * self.price
 
