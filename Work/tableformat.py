@@ -6,8 +6,7 @@ def create_formatter(name):
     elif name == 'html':
         formatter = HtmlTableFormatter()
     else:
-        print("Unkown Formatter", name)
-        return None
+        raise FormatError(f"Unkown Table Format {name}")
 
     return formatter
 
@@ -19,6 +18,10 @@ def print_table(objects,columns, formatter):
         for col in columns:
             rowdata.append(str(getattr(ele, col)))
         formatter.row(rowdata)
+
+
+class FormatError(Exception):
+    pass
 
 
 class TableFormatter:
