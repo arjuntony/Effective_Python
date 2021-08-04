@@ -58,16 +58,7 @@ def print_report(report, formatter):
     """
     headers = ('Name', 'Quantity', 'Price', 'Change')
     formatter.headings(headers)
-    # dashes = ["-" * 10, ] * 4
-    # print('{:>10} {:>10} {:>10} {:>10}'.format(*headers))
-    # print(f"{headers[0]:>10s} {headers[1]:>10s} {headers[2]:>10s} {headers[3]:>10s}")
-    # print('{:>10} {:>10} {:>10} {:>10}'.format(*dashes))
-    for name, quant, price, change in report:
-        rowdata = [name , str(quant), f"{price:>0.2f}" , f"{change:>0.2f}" ]
-        formatter.row(rowdata)
-
-        # price = '\u20B9' + str(price)
-        # print(f"{name:>10s} {quant:>10d} {price:>10s} {change:>10.2f}")
+    formatter.row(report)
 
 
 def inventory_report(inventory_filename, prices_filename, fmt='txt'):
@@ -80,7 +71,6 @@ def inventory_report(inventory_filename, prices_filename, fmt='txt'):
 
     # Create the Report Data
     rows = make_report(inventory, latest_prices)
-
 
     # Print the Report
     formatter = tableformat.create_formatter(fmt)

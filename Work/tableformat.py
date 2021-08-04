@@ -40,9 +40,8 @@ class TextTableFormatter(TableFormatter):
         print(('-'*10 + " ") * len(headers))
 
     def row(self, rowdata):
-        for d in rowdata:
-            print(f"{d:>10s}", end=" ")
-        print()
+        for name, quant, price, change in rowdata:
+            print(f"{name:>10s}", f"{quant:>10d}", f"{price:>10.2f}", f"{change :>10.2f}")
 
 
 class CsvTableFormatter(TableFormatter):
