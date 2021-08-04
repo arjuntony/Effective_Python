@@ -58,7 +58,10 @@ def print_report(report, formatter):
     """
     headers = ('Name', 'Quantity', 'Price', 'Change')
     formatter.headings(headers)
-    formatter.row(report)
+    for name, quant, price, change in report:
+        price = '\u20B9' + f"{price:>0.2f}"
+        rowdata = [name, str(quant), f"{price:s}", f"{change:>0.2f}"]
+        formatter.row(rowdata)
 
 
 def inventory_report(inventory_filename, prices_filename, fmt='txt'):
