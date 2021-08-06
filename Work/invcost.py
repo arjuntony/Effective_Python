@@ -11,7 +11,7 @@ def inventory_cost(filename):
     total = 0.0
 
     for pdct in inv:
-        total += pdct.quant * pdct.price
+        total += pdct.cost
 
     return total
 

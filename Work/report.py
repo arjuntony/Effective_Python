@@ -76,7 +76,12 @@ def inventory_report(inventory_filename, prices_filename, fmt='txt'):
     rows = make_report(inventory, latest_prices)
 
     # Print the Report
-    formatter = tableformat.create_formatter(fmt)
+    try:
+        formatter = tableformat.create_formatter(fmt)
+    except tableformat.FormatError as e:
+        print(e)
+        return
+
     print_report(rows, formatter)
 
 
