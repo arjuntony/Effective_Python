@@ -10,6 +10,16 @@ class Product:
         return (f"Product({self.name!r},{self.quant},{self.price})")
 
     @property
+    def quant(self):
+        return self._quant
+
+    @quant.setter
+    def quant(self, value):
+        if not isinstance(value , int):
+            raise TypeError("Expected an int value")
+        self._quant = value
+
+    @property
     def cost(self):
         return self.quant * self.price
 
