@@ -4,6 +4,7 @@ from pprint import pprint
 from file_parse import parse_csv
 from product import Product
 import tableformat
+from inventory import Inventory
 
 
 def read_inventory(filename):
@@ -17,7 +18,8 @@ def read_inventory(filename):
         invdicts =  parse_csv(FH,
                      select = ["name", "quant", "price"],
                      types = [str, int, float])
-        return [Product(p['name'], p['quant'], p['price']) for p in invdicts]
+    inv = [Product(p['name'], p['quant'], p['price']) for p in invdicts]
+    return Inventory(inv)
 
 
 def read_prices(filename):
