@@ -1,5 +1,7 @@
 class Product:
 
+    __slots__ = ("name", "_quant", "price")
+
     def __init__(self, name, quant, price):
         self.name = name
         self.quant = quant
