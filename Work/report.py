@@ -1,10 +1,10 @@
 import csv
 import sys
 from pprint import pprint
+from inventory import Inventory
 from file_parse import parse_csv
 from product import Product
 import tableformat
-from inventory import Inventory
 
 
 def read_inventory(filename, **opts):
@@ -15,12 +15,17 @@ def read_inventory(filename, **opts):
     :return: list of dict
     """
     with open(filename) as FH:
-        invdicts = parse_csv(FH,
-                             select=["name", "quant", "price"],
-                             types=[str, int, float],
-                             **opts)
-    inv = [Product(**p) for p in invdicts]
-    return Inventory(inv)
+        return Inventory.from_csv(FH)
+    #     invdicts = parse_csv(FH,
+    #                          select=["name", "quant", "price"],
+    #                          types=[str, int, float],
+    #                          **opts)
+    # # inv = [Product(**p) for p in invdicts]
+    # inv = Inventory()
+    # for p in invdicts:
+    #     inv.append(Product(**p))
+    # return inv
+
 
 
 def read_prices(filename):
