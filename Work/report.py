@@ -7,7 +7,7 @@ import tableformat
 from inventory import Inventory
 
 
-def read_inventory(filename):
+def read_inventory(filename, **opts):
     """
      Read inventory file into a list of dictnories with keys as
      name,quant,prices
@@ -15,9 +15,10 @@ def read_inventory(filename):
     :return: list of dict
     """
     with open(filename) as FH:
-        invdicts =  parse_csv(FH,
-                     select = ["name", "quant", "price"],
-                     types = [str, int, float])
+        invdicts = parse_csv(FH,
+                             select=["name", "quant", "price"],
+                             types=[str, int, float],
+                             **opts)
     inv = [Product(**p) for p in invdicts]
     return Inventory(inv)
 
@@ -29,8 +30,8 @@ def read_prices(filename):
     :return: dict
     """
     with open(filename) as FH:
-        return dict(parse_csv(FH, types= [str, float],
-              has_headers=False))
+        return dict(parse_csv(FH, types=[str, float],
+                              has_headers=False))
 
 
 def make_report(pdcs, prices):
@@ -104,5 +105,5 @@ def main(argv):
 
 if __name__ == "__main__":
     import sys
-    main(sys.argv)
 
+    main(sys.argv)
