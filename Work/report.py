@@ -27,7 +27,6 @@ def read_inventory(filename, **opts):
     # return inv
 
 
-
 def read_prices(filename):
     """
     Read csv file of prices into a dict mapping product names to prices
