@@ -1,5 +1,5 @@
-def typedproperty(prop_name, expected_type):
-    private_name = '_' + prop_name
+def typedproperty(attr_name, expected_type):
+    private_name = '_' + attr_name
 
     @property
     def prop(self):
@@ -12,3 +12,8 @@ def typedproperty(prop_name, expected_type):
         setattr(self, private_name, value)
 
     return prop
+
+
+String = lambda attrname: typedproperty(attrname, str)
+Integer = lambda attrname: typedproperty(attrname, int)
+Float = lambda attrname: typedproperty(attrname, float)

@@ -1,17 +1,18 @@
-from typedproperty import typedproperty
+from typedproperty import String, Integer, Float
+
 
 class Product:
-
     #__slots__ = ("name", "_quant", "price")
 
-    name = typedproperty('name', str)
-    quant = typedproperty('quant', int)
-    price = typedproperty('price', float)
+    name = String("name")
+    quant = Integer('quant')
+    price = Float('price')
 
     def __init__(self, name, quant, price):
         self.name = name
         self.quant = quant
         self.price = price
+
     # no return statement in init
 
     def __repr__(self):
@@ -34,4 +35,3 @@ class Product:
     def sell(self, amt):
         new_amt = self.quant - amt
         self.quant = new_amt
-
