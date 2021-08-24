@@ -14,6 +14,12 @@ def follow(filename):
         yield line
 
 
+def filematch(lines, substr):
+    for line in lines:
+        if substr in line:
+            yield line
+
+
 if __name__ == '__main__':
     import report
     inventory = report.read_inventory("Data/inventory.csv")
@@ -25,4 +31,3 @@ if __name__ == '__main__':
         change = float(fields[4])
         if name in inventory:
             print(f'{name:>10s} {price:>10.2f} {change:>10.2f}')
-843509
