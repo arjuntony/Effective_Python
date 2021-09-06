@@ -2,7 +2,7 @@ from typedproperty import String, Integer, Float
 
 
 class Product:
-    #__slots__ = ("name", "_quant", "price")
+    __slots__ = ("_name", "_quant", "_price")
 
     name = String("name")
     quant = Integer('quant')
