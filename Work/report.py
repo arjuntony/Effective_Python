@@ -5,6 +5,12 @@ from inventory import Inventory
 from file_parse import parse_csv
 from product import Product
 import tableformat
+import logging
+logging.basicConfig(
+    filename = 'app.log',
+    filemode = 'a',
+    level = logging.WARNING,
+)
 
 
 def read_inventory(filename, **opts):
